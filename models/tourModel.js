@@ -149,9 +149,7 @@ tourSchema.pre('save', function (next) {
 
 // In post we have access to saved document and next
 // tourSchema.post('save', function (doc,next) {
-//     console.log(this, 'divider\n\n', doc)
 //     // the doc and this are the same document
-//     console.log(this == doc)
 //     next();
 // });
 
@@ -190,7 +188,6 @@ tourSchema.pre(/^find/, function (next) {
 //     // WE are filtering ou secret tour by inserting $match object to aggregate pipeline
 //     // aggregate is an array hence unshift
 //     this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-//     console.log('pl', this.pipeline())
 
 //     next();
 // });

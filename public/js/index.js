@@ -30,7 +30,6 @@ if (loginForm) {
 
 if (signupForm) {
     signupForm.addEventListener('submit', e => {
-        console.log('inside signup');
         e.preventDefault();
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -77,6 +76,6 @@ if (bookBtn) {
         // In tour.pug we had passed tour id as data-tour-id
         // but tour-id is transformed to camelcase in js as tourId
         const { tourId } = e.target.dataset;
-       bookTour(tourId);
+        bookTour(tourId);
     });
 }

@@ -20,7 +20,7 @@ module.exports = class Email {
                     user: process.env.SENDGRID_USERNAME,
                     pass: process.env.SENDGRID_PASSWORD
                 }
-            })
+            });
         }
 
         return nodemailer.createTransport({
@@ -54,12 +54,12 @@ module.exports = class Email {
         await this.newTransport().sendMail(mailOptions);
     }
 
-   async sendWelcome() {
-       await this.send('welcome', 'Welcome to the Natours Family!')
+    async sendWelcome() {
+        await this.send('welcome', 'Welcome to the Natours Family!');
     }
 
     async sendPasswordReset() {
-        await this.send('passwordReset', 'Your password reset token (valid only for 10 minutes)')
+        await this.send('passwordReset', 'Your password reset token (valid only for 10 minutes)');
     }
 };
 

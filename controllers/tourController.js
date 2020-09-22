@@ -168,8 +168,6 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
     if (!lat || !lng) {
         return next(new AppError('Please provide the latitude and longitude in the format lat,lng.', 400));
     }
-
-    console.log('distance ', distance, 'radius ', radius, 'unit ', unit);
     const tours = await Tour.find({
         startLocation: {
             $geoWithin: {

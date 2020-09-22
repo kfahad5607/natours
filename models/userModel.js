@@ -1,4 +1,4 @@
-const crypto = require('crypto')
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -72,7 +72,7 @@ userSchema.pre('save', function (next) {
 userSchema.pre(/^find/, function (next) {
     this.find({ active: { $ne: false } });
     next();
-})
+});
 
 // userSchema.methods. makes a function available to us in the document created by the userSchema
 userSchema.methods.correctPassword = function (candidatePassword, userPassword) {
@@ -95,11 +95,11 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
 
 userSchema.methods.createResetPasswordToken = function () {
     const resetToken = crypto.randomBytes(32).toString('hex');
-    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
     this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-    
+
     return resetToken;
-}
+};
 
 
 const User = mongoose.model('User', userSchema);

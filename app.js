@@ -14,6 +14,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
+const compression = require('compression');
 const app = express();
 
 // setting the view engie as pug
@@ -61,12 +62,7 @@ app.use(hpp({
     ]
 }));
 
-// Test Middleware
-app.use((req, res, next) => {
-    // Adding a custom property
-    // req.requestTime = new Date().toISOString();
-    next();
-});
+app.use(compression());
 
 // Users Route
 app.use('/', viewRouter);
@@ -77,7 +73,6 @@ app.use('/api/v1/bookings', bookingRouter);
 
 // Handling Unhandled Routes
 app.all('*', (req, res, next) => {
-
     // If a argument is passed to next() function then all the upcoming middlewares in the 
     // middleware stack are skipped and middleware with global error handler is executed
     next(new AppError(`Cannot get anything for ${req.originalUrl} from the server!`, 404));
