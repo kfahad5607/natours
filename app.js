@@ -11,6 +11,7 @@ const path = require('path');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
@@ -43,6 +44,10 @@ const limiter = rateLimit({
 });
 // Using limiter func on all routes '/api'
 app.use('/api', limiter);
+
+app.post('/webhook-checkout', express.raw({
+    type: 'application/json'
+}), bookingController.webhookCheckout)
 
 // Body parser, reads data from the body into req.body
 // here { limit : '10kb'} means if the req data is more than 10kb then it won't be accepted
