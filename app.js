@@ -15,6 +15,7 @@ const viewRouter = require('./routes/viewRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const compression = require('compression');
+const cors = require('cors');
 const app = express();
 app.enable('trust proxy');
 
@@ -24,6 +25,10 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 //Global Middlewares
+// implement cors
+app.use(cors())
+
+app.options('*', cors())
 // Serving the static files
 app.use(express.static(path.join(__dirname, 'public')));
 // set Security HTTP headers
