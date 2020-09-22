@@ -16,6 +16,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const compression = require('compression');
 const app = express();
+app.enable('trust proxy');
 
 // setting the view engie as pug
 app.set('view engine', 'pug');
