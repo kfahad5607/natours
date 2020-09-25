@@ -5,7 +5,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
 const tourRouter = require('./routes/tourRoutes');
 const path = require('path');
 const userRouter = require('./routes/userRoutes');
@@ -29,12 +28,19 @@ app.set('views', path.join(__dirname, 'views'));
 // implement cors
 app.use(cors())
 
+// Content Security Policy
+app.use((req, res, next) => {
+    // res.setHeader("Content-Security-Policy", "default-src *; script-src *; style-src *; img-src *");
+    next()
+})
+
 app.options('*', cors())
 // Serving the static files
 app.use(express.static(path.join(__dirname, 'public')));
 // set Security HTTP headers
-app.use(helmet());
-// app.use(morgan('dev'));
+app.use(helmet({
+    contentSecurityPolicy: false,
+  }));
 
 // rate limiter function to limit the no. of requests per hour from an IP
 const limiter = rateLimit({

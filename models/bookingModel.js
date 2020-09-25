@@ -33,6 +33,9 @@ bookingSchema.pre(/^find/, function (next) {
     next();
 });
 
+// this prevents multiple bookings by same user on same tour
+bookingSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 const Booking = mongoose.model('Booking', bookingSchema);
 
 module.exports = Booking;

@@ -1,6 +1,7 @@
 const express = require('express');
 const reviewController = require('./../controllers/reviewController');
 const authController = require('./../controllers/authController');
+const bookingController = require('../controllers/bookingController')
 
 const router = express.Router({ mergeParams: true });
 // {mergeParams:true} will make params in the previous url available in this router
@@ -10,7 +11,7 @@ router.use(authController.protect);
 router
     .route('/')
     .get(reviewController.getAllReviews)
-    .post(authController.restrictTo('user'), reviewController.setTourUserIds, reviewController.createReview);
+    .post(authController.restrictTo('user'), reviewController.setTourUserIds,reviewController.verifyBooking, reviewController.createReview);
 
 router
     .route('/:id')

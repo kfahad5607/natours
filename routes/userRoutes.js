@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('./../controllers/authController');
 const userController = require('./../controllers/userController');
+const bookingRouter = require('./../routes/bookingRoutes');
 
 const router = express.Router();
 
@@ -12,7 +13,10 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 // Protect all routes after this middleware
 router.use(authController.protect);
-
+router.use('/:userId/bookings', (req, res, next) => {
+    console.log('idahr');
+    next()
+}, bookingRouter)
 router.get('/me', userController.getMe, userController.getUser);
 router.patch('/updateMyPassword', authController.updatePassword);
 router.patch('/updateMe', userController.uploadUserPhoto, userController.resizeUserPhoto, userController.updateMe);

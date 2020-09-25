@@ -14,8 +14,9 @@ exports.createOne = Model => catchAsync(async (req, res, next) => {
 
 exports.getAll = Model => catchAsync(async (req, res, next) => {
     // TO allow for nested GEt reviews on tours (hack)
-    let filter = {};
+    let filter = {}
     if (req.params.tourId) filter = { tour: req.params.tourId };
+    if (req.params.userId) filter = { user: req.params.userId };
     // creating an instance of APIFeatures class
     const features = new APIFeatures(Model.find(filter), req.query).filter().sort().limitFields().paginate();
     // const features = new APIFeatures(Tour, req.query).filter().sort().limitFields().paginate();

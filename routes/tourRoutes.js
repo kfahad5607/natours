@@ -2,11 +2,13 @@ const express = require('express');
 const authController = require('./../controllers/authController');
 const tourController = require('./../controllers/tourController');
 const reviewRouter = require('./../routes/reviewRoutes');
+const bookingRouter = require('./../routes/bookingRoutes');
 const router = express.Router();
 
 // to make this tourId param available in the reviewRouter
 // we will have to use {mergeParams:true} in the reviewRouter
 router.use('/:tourId/reviews', reviewRouter);
+router.use('/:tourId/bookings', bookingRouter);
 // router.param('id', checkId)
 // creating an aliasing route
 router.route('/top-5-cheap')
